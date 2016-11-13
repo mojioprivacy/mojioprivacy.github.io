@@ -1,0 +1,67 @@
+
+<html>
+<head>
+<script src="MojioClientLite.js"></script>
+<script>
+    var appid='6c25fc4c-7dc9-4c67-9941-328aa5fb3dd0';
+    var secretid='76500d8d-550c-4ae2-b790-d998a49d66ae';
+    var config = {
+        application: appid,
+        secret:secretid
+    };
+    var mojio_client = new MojioClientLite(config);
+    console.log(mojio_client);
+    mojio_client.authorize('i1005820@mvrht.com','mojio12345').then(function(res,err){
+        console.log("inside authorize");
+        if(typeof(err)!="undefined")
+        {
+            console.log("login error");
+            return;
+        }
+
+        // login successful
+        // write your logic here
+        console.log("Authorization Successful.");
+        var mojiomePromise=mojio_client.get().me();
+        mojiomePromise.then(function (mojiome) {
+            console.log(mojiome);
+            console.log(mojiome.Id);
+        });
+        vehiclesPromise=mojio_client.get().vehicles();
+        vehiclesPromise.then(function (vehicles) {
+           console.log(vehicles); 
+        });
+    })
+    /*
+    if (mojio_client.token())
+    {   
+        // Here you can call API calls for authorized user
+    }
+    else
+    {
+        // No authorized user, redirect to Mojio authentication server.
+        mojio_client.authorize();
+    }
+    */
+    //var mojiome=mojio_client.get().me();
+    //console.log(mojiome);
+    //vehicles=mojio_client.get().vehicles();
+    //console.log(vehicles);
+</script>
+</head>
+
+<body>
+
+<b>List of permissions</b>
+<table>
+    <tr><td>States</td></tr>
+    <tr><td>Locations</td></tr>
+    <tr><td>Trips</td></tr>
+    <tr><td>Vehicles</td></tr>
+    <tr><td>Address</td></tr>
+</table>
+
+Privatized Location
+<img src="privatized.png" style="height:75%"/>
+</body>
+</html>
